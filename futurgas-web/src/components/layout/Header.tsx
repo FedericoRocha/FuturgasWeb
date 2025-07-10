@@ -70,30 +70,18 @@ export default function Header() {
                 transition: 'opacity 0.3s ease'
               }}
             />
-            <span style={{
-              fontSize: '1.75rem',
-              fontWeight: 800,
-              background: 'linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-              transition: 'all 0.3s ease',
-              position: 'relative',
-              zIndex: 1,
-              textShadow: '0 2px 10px rgba(96, 165, 250, 0.3)'
-            }}>Futur</span>
-            <span style={{
-              fontSize: '1.75rem',
-              fontWeight: 800,
-              background: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-              transition: 'all 0.3s ease',
-              position: 'relative',
-              zIndex: 1,
-              textShadow: '0 2px 10px rgba(59, 130, 246, 0.3)'
-            }}>Gas</span>
+            <img 
+              src="/futurgas.png" 
+              alt="FuturGas Logo" 
+              style={{
+                height: '40px',
+                width: 'auto',
+                transition: 'all 0.3s ease',
+                position: 'relative',
+                zIndex: 1,
+                filter: 'drop-shadow(0 2px 10px rgba(96, 165, 250, 0.3))'
+              }}
+            />
           </a>
         </div>
         

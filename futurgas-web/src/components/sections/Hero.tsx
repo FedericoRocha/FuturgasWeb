@@ -1,9 +1,36 @@
 import { motion } from 'framer-motion';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function Hero() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+  const animationFrameId = useRef<number | null>(null);
 
+  // Efecto para manejar el estado de móvil/escritorio
+  useEffect(() => {
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkIfMobile();
+    
+    // Usar debounce para evitar múltiples actualizaciones durante el redimensionamiento
+    let resizeTimer: ReturnType<typeof setTimeout>;
+    const handleResize = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        checkIfMobile();
+      }, 100);
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      clearTimeout(resizeTimer);
+    };
+  }, []);
+
+  // Efecto para el canvas y partículas
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -11,26 +38,40 @@ export default function Hero() {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
     
-    // Configuración del canvas
-    canvas.width = window.innerWidth;
-    canvas.height = 600;
+
+    let width = window.innerWidth;
+    let height = 600;
+    
+    const handleResize = () => {
+      width = window.innerWidth;
+      if (canvas) {
+        canvas.width = width;
+        canvas.height = height;
+      }
+    };
+    
+    // Configuración inicial
+    handleResize();
     
     // Partículas
     const particles: {x: number, y: number, size: number, speedX: number, speedY: number}[] = [];
-    const particleCount = window.innerWidth < 768 ? 30 : 60;
+    const particleCount = isMobile ? 30 : 60;
     
+    // Inicializar partículas
     for (let i = 0; i < particleCount; i++) {
       particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
+        x: Math.random() * width,
+        y: Math.random() * height,
         size: Math.random() * 3 + 1,
         speedX: Math.random() * 0.5 - 0.25,
         speedY: Math.random() * 0.5 - 0.25
       });
     }
     
-    // Animación de partículas
+    // Función de animación de partículas
     const animate = () => {
+      if (!ctx || !canvas) return;
+      
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
       // Actualizar y dibujar partículas
@@ -39,8 +80,8 @@ export default function Hero() {
         particle.y += particle.speedY;
         
         // Rebotar en los bordes
-        if (particle.x < 0 || particle.x > canvas.width) particle.speedX *= -1;
-        if (particle.y < 0 || particle.y > canvas.height) particle.speedY *= -1;
+        if (particle.x < 0 || particle.x > width) particle.speedX *= -1;
+        if (particle.y < 0 || particle.y > height) particle.speedY *= -1;
         
         // Dibujar partícula
         ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
@@ -48,102 +89,58 @@ export default function Hero() {
         ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
         ctx.fill();
       });
-      
-      requestAnimationFrame(animate);
     };
     
-    animate();
-    
-    // Manejar redimensionamiento
-    const handleResize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = 600;
+    // Iniciar animación
+    const animateParticles = () => {
+      if (canvas && ctx) {
+        animate();
+        const id = requestAnimationFrame(animateParticles);
+        animationFrameId.current = id;
+      }
     };
     
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    const initialId = requestAnimationFrame(animateParticles);
+    animationFrameId.current = initialId;
+    
+    // Limpieza
+    return () => {
+      if (animationFrameId.current !== null) {
+        cancelAnimationFrame(animationFrameId.current);
+        animationFrameId.current = null;
+      }
+    };
   }, []);
 
   return (
-    <section style={{
-      position: 'relative',
-      background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #1e40af 100%)',
-      color: '#ffffff',
-      overflow: 'hidden',
-      padding: '8rem 0 10rem',
-      minHeight: '100vh',
-      display: 'flex',
-      alignItems: 'center',
-      boxShadow: 'inset 0 -60px 100px -50px rgba(0,0,0,0.5)'
-    }}>
+    <section className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-blue-900 text-white overflow-hidden py-20 md:py-32 lg:py-0 lg:min-h-screen flex items-center shadow-[inset_0_-60px_100px_-50px_rgba(0,0,0,0.5)]">
       <canvas 
         ref={canvasRef} 
+        className="absolute top-0 left-0 w-full h-full opacity-50 pointer-events-none"
         style={{
           position: 'absolute',
           top: 0,
           left: 0,
           width: '100%',
           height: '100%',
-          opacity: 0.5
         }}
       />
       
-      <div style={{
-        position: 'relative',
-        maxWidth: '1280px',
-        margin: '0 auto',
-        padding: '0 1.5rem',
-        zIndex: 1,
-        width: '100%'
-      }}>
-        <div style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          ...(window.innerWidth >= 1024 ? {
-            flexDirection: 'row',
-            alignItems: 'center'
-          } : {})
-        }}>
-          <div style={{
-            width: '100%',
-            marginBottom: '3rem',
-            ...(window.innerWidth >= 1024 ? {
-              width: '50%',
-              marginBottom: 0,
-              paddingRight: '2rem'
-            } : {})
-          }}>
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10">
+        <div className="flex flex-col items-center lg:flex-row lg:items-center">
+          <div className="w-full mb-8 sm:mb-12 lg:mb-0 lg:w-1/2 lg:pr-8">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: 'easeOut' }}
             >
-              <h1 style={{
-                fontSize: window.innerWidth >= 1024 ? '4rem' : window.innerWidth >= 768 ? '3.5rem' : '2.5rem',
-                fontWeight: 800,
-                lineHeight: 1.2,
-                marginBottom: '1.5rem',
-                background: 'linear-gradient(90deg, #fff, #a5b4fc)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-                margin: 0,
-                padding: 0
-              }}>
-                Tu solución integral en servicios de <span style={{ color: '#60a5fa' }}>gas</span> y electricidad
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight mb-4 sm:mb-6 bg-gradient-to-r from-white to-indigo-200 bg-clip-text text-transparent m-0 p-0">
+                Tu solución integral en servicios de <span className="text-blue-400">gas</span> y electricidad
               </h1>
             </motion.div>
             
             <motion.p 
-              style={{
-                fontSize: '1.25rem',
-                color: '#e2e8f0',
-                marginBottom: '2.5rem',
-                lineHeight: 1.6,
-                maxWidth: '600px',
-                opacity: 0.9
-              }}
+              className="text-base sm:text-lg md:text-xl text-slate-200 mb-8 sm:mb-10 leading-relaxed max-w-2xl opacity-90"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 0.9, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
@@ -155,45 +152,13 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4, ease: 'easeOut' }}
-              style={{
-                display: 'flex',
-                flexDirection: window.innerWidth >= 640 ? 'row' : 'column',
-                gap: window.innerWidth >= 640 ? '1.5rem' : '1rem'
-              }}
+              className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto"
             >
-              <div style={{ position: 'relative', display: 'inline-block' }}>
-                <div style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  background: 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)',
-                  opacity: 0,
-                  transition: 'opacity 0.3s ease',
-                  zIndex: 1,
-                  borderRadius: '0.5rem'
-                }} className="btn-hover-effect" />
+              <div className="w-full sm:w-auto">
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-blue-700 opacity-0 transition-opacity duration-300 rounded-lg z-10" />
                 <a
                   href="#contacto"
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    padding: '0.875rem 2rem',
-                    borderRadius: '0.5rem',
-                    fontWeight: 600,
-                    textDecoration: 'none',
-                    background: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
-                    color: 'white',
-                    transition: 'all 0.3s ease',
-                    boxShadow: '0 4px 15px rgba(59, 130, 246, 0.3)',
-                    position: 'relative',
-                    overflow: 'hidden',
-                    zIndex: 2,
-                    border: 'none',
-                    cursor: 'pointer'
-                  }}
+                  className="relative z-20 w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 sm:py-3.5 text-base sm:text-lg font-semibold text-white bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg shadow-md hover:shadow-lg hover:shadow-blue-500/30 transition-all duration-300 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-slate-900"
                   onMouseOver={(e) => {
                     const hoverEffect = e.currentTarget.previousElementSibling as HTMLElement;
                     if (hoverEffect) hoverEffect.style.opacity = '1';
@@ -219,25 +184,10 @@ export default function Hero() {
                   </svg>
                 </a>
               </div>
-              <div style={{ position: 'relative', display: 'inline-block' }}>
+              <div className="w-full sm:w-auto">
                 <a
                   href="#servicios"
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    padding: '0.875rem 2rem',
-                    borderRadius: '0.5rem',
-                    fontWeight: 600,
-                    textDecoration: 'none',
-                    background: 'rgba(255, 255, 255, 0.1)',
-                    color: 'white',
-                    border: '1px solid rgba(255, 255, 255, 0.2)',
-                    transition: 'all 0.3s ease',
-                    position: 'relative',
-                    zIndex: 2,
-                    cursor: 'pointer'
-                  }}
+                  className="relative z-20 w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 sm:py-3.5 text-base sm:text-lg font-semibold text-white bg-white/10 border border-white/20 rounded-lg hover:bg-white/20 transition-all duration-300 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-white/30 focus:ring-offset-2 focus:ring-offset-slate-900"
                   onMouseOver={(e) => {
                     e.currentTarget.style.background = 'rgba(255, 255, 255, 0.15)';
                     e.currentTarget.style.transform = 'translateY(-2px)';

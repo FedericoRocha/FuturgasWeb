@@ -3,6 +3,33 @@ import { motion } from 'framer-motion';
 
 const About: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
+  const [hasMounted, setHasMounted] = useState(false);
+
+  useEffect(() => {
+    setHasMounted(true);
+    
+    const checkIfDesktop = () => {
+      setIsDesktop(window.innerWidth >= 1024);
+    };
+    
+    checkIfDesktop();
+    
+    // Usar un debounce para evitar múltiples actualizaciones durante el redimensionamiento
+    let resizeTimer: ReturnType<typeof setTimeout>;
+    const handleResize = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        checkIfDesktop();
+      }, 100);
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      clearTimeout(resizeTimer);
+    };
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,12 +52,7 @@ const About: React.FC = () => {
   return (
     <section 
       id="about"
-      style={{
-        padding: '6rem 1.5rem',
-        background: 'linear-gradient(to bottom, #0f172a 0%, #1e293b 100%)',
-        position: 'relative',
-        overflow: 'hidden'
-      }}
+      className="py-24 px-6 lg:px-8 bg-gradient-to-b from-slate-900 to-slate-800 relative overflow-hidden"
     >
       {/* Elementos decorativos */}
       <div style={{
@@ -44,35 +66,14 @@ const About: React.FC = () => {
         zIndex: 0
       }} />
       
-      <div style={{
-        maxWidth: '1280px',
-        margin: '0 auto',
-        position: 'relative',
-        zIndex: 1
-      }}>
-        <div style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          ...(window.innerWidth >= 1024 ? {
-            flexDirection: 'row',
-            alignItems: 'flex-start',
-            gap: '4rem'
-          } : {})
-        }}>
+      <div className="max-w-7xl mx-auto relative z-10">
+        <div className="flex flex-col items-center lg:flex-row lg:items-start lg:gap-16">
           {/* Columna de imagen */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
-            style={{
-              width: '100%',
-              marginBottom: '2rem',
-              ...(window.innerWidth >= 1024 ? {
-                width: '45%',
-                marginBottom: 0
-              } : {})
-            }}
+            className="w-full mb-12 lg:mb-0 lg:w-5/12"
           >
             <div style={{
               position: 'relative',
@@ -83,22 +84,20 @@ const About: React.FC = () => {
               <img 
                 src="/images/about-image.jpg" 
                 alt="Equipo de Futurgas"
+                className="w-full h-auto block transition-transform duration-500 ease-in-out rounded-xl"
                 style={{
-                  width: '100%',
-                  height: 'auto',
-                  display: 'block',
-                  transition: 'transform 0.5s ease',
-                  borderRadius: '1rem',
-                  transform: window.innerWidth >= 1024 ? 'scale(1.05)' : 'scale(1)'
+                  transform: hasMounted && isDesktop ? 'scale(1.05)' : 'scale(1)'
                 }}
                 onMouseOver={(e) => {
-                  if (window.innerWidth >= 1024) {
+                  if (isDesktop) {
                     e.currentTarget.style.transform = 'scale(1.03)';
                   }
                 }}
                 onMouseOut={(e) => {
-                  if (window.innerWidth >= 1024) {
+                  if (isDesktop) {
                     e.currentTarget.style.transform = 'scale(1.05)';
+                  } else {
+                    e.currentTarget.style.transform = 'scale(1)';
                   }
                 }}
               />
@@ -132,13 +131,7 @@ const About: React.FC = () => {
           </motion.div>
 
           {/* Columna de contenido */}
-          <div style={{
-            width: '100%',
-            ...(window.innerWidth >= 1024 ? {
-              width: '55%',
-              paddingTop: '1rem'
-            } : {})
-          }}>
+          <div className="w-full lg:w-7/12 lg:pt-4">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
@@ -156,38 +149,15 @@ const About: React.FC = () => {
                 Sobre Nosotros
               </span>
               
-              <h2 style={{
-                fontSize: window.innerWidth >= 1024 ? '2.5rem' : '2rem',
-                fontWeight: 800,
-                lineHeight: 1.2,
-                margin: '0.5rem 0 1.5rem',
-                color: 'white',
-                background: 'linear-gradient(90deg, #fff, #a5b4fc)', 
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text'
-              }}>
+              <h2 className="text-4xl md:text-5xl font-extrabold leading-tight mt-2 mb-6 bg-gradient-to-r from-white to-indigo-200 bg-clip-text text-transparent">
                 Expertos en soluciones de gas y electricidad
               </h2>
 
-              <p style={{
-                color: '#cbd5e1',
-                fontSize: '1.125rem',
-                lineHeight: 1.7,
-                marginBottom: '2rem'
-              }}>
+              <p className="text-lg text-slate-300 leading-relaxed mb-8">
                 En <strong style={{ color: '#60a5fa' }}>Futurgas</strong>, nos enorgullece ofrecer soluciones integrales en instalaciones de gas y electricidad para hogares y empresas. Con más de una década de experiencia en el sector, nos hemos consolidado como líderes en el mercado gracias a nuestro compromiso con la calidad, seguridad y satisfacción del cliente.
               </p>
 
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(1, 1fr)',
-                gap: '1.5rem',
-                marginBottom: '2.5rem',
-                ...(window.innerWidth >= 640 ? {
-                  gridTemplateColumns: 'repeat(2, 1fr)'
-                } : {})
-              }}>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10">
                 {[
                   {
                     icon: '🔧',
