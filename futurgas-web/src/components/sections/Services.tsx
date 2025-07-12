@@ -1,11 +1,13 @@
 import { motion } from 'framer-motion';
 import { 
-  WrenchScrewdriverIcon, 
-  BoltIcon, 
-  HomeModernIcon,
   CheckCircleIcon,
   ArrowRightIcon
 } from '@heroicons/react/24/outline';
+import { 
+  WrenchScrewdriverIcon as WrenchScrewdriverSolid,
+  BoltIcon as BoltSolid,
+  FireIcon as FireSolid
+} from '@heroicons/react/24/solid';
 
 // Eliminamos la importación de styles.module.css ya que usaremos estilos en línea
 
@@ -13,7 +15,7 @@ const services = [
   {
     name: 'Plomería Integral',
     description: 'Soluciones completas en instalación, mantenimiento y reparación de sistemas de plomería residencial y comercial.',
-    icon: WrenchScrewdriverIcon,
+    icon: WrenchScrewdriverSolid,
     features: [
       'Reparación de fugas',
       'Instalación de sanitarios',
@@ -26,7 +28,7 @@ const services = [
   {
     name: 'Instalaciones de Gas',
     description: 'Servicio profesional de instalación y mantenimiento de redes de gas natural y envasado, con personal certificado.',
-    icon: BoltIcon,
+    icon: FireSolid,
     features: [
       'Instalaciones nuevas',
       'Certificaciones',
@@ -39,7 +41,7 @@ const services = [
   {
     name: 'Electricidad',
     description: 'Servicios eléctricos completos con garantía, desde instalaciones nuevas hasta reparaciones de emergencia 24/7.',
-    icon: BoltIcon,
+    icon: BoltSolid,
     features: [
       'Instalaciones nuevas',
       'Reparaciones urgentes',
@@ -49,33 +51,9 @@ const services = [
     colorFrom: '#8b5cf6',
     colorTo: '#7c3aed'
   },
-  {
-    name: 'Construcción en Seco',
-    description: 'Reformas integrales, ampliaciones y construcción en seco con los más altos estándares de calidad.',
-    icon: HomeModernIcon,
-    features: [
-      'Tabiquería en seco',
-      'Techos desmontables',
-      'Revestimientos',
-      'Aislamientos'
-    ],
-    colorFrom: '#10b981',
-    colorTo: '#059669'
-  },
+
 ];
 
-const fadeInUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      delay: i * 0.15,
-      duration: 0.8,
-      ease: [0.25, 0.1, 0.25, 1] as const
-    },
-  }),
-};
 
 const staggerContainer = {
   hidden: { opacity: 0 },
@@ -214,20 +192,14 @@ export default function Services() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-center items-stretch place-items-center"
           >
-            {services.map((service, index) => {
+            {services.map((service) => {
               const Icon = service.icon;
               return (
-                <motion.div
+                <div
                   key={service.name}
-                  custom={index}
-                  variants={fadeInUp}
-                  className="relative rounded-2xl overflow-hidden transition-all duration-300 bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700/50 flex flex-col h-full w-full hover:border-blue-500/50 hover:shadow-xl hover:shadow-blue-500/10"
-                  whileHover={{ 
-                    transform: 'translateY(-8px)',
-                    boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1)'
-                  }}
+                  className="relative rounded-2xl overflow-hidden transition-all duration-300 bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700/50 flex flex-col min-h-full w-full hover:border-blue-500/50 hover:shadow-xl hover:shadow-blue-500/10 flex-grow hover:scale-105"
                 >
                   <div style={{
                     position: 'absolute',
@@ -239,11 +211,17 @@ export default function Services() {
                   }} />
                   
                   <div className="p-6 md:p-8 flex flex-col h-full" style={{ boxSizing: 'border-box' }}>
-                    <div className="w-16 h-16 rounded-xl flex items-center justify-center mb-6 bg-gradient-to-br from-blue-500 to-blue-600 shadow-lg">
+                    <div 
+                      className="w-20 h-20 rounded-full flex items-center justify-center mb-6 shadow-xl border-4 border-white/10"
+                      style={{ 
+                        background: `linear-gradient(135deg, ${service.colorFrom} 10%, ${service.colorTo} 90%)` 
+                      }}
+                    >
                       <Icon style={{ 
-                        width: '1.75rem', 
-                        height: '1.75rem', 
-                        color: service.colorFrom 
+                        width: '2.5rem', 
+                        height: '2.5rem', 
+                        color: '#fff', 
+                        filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.18))'
                       }} />
                     </div>
                     
@@ -302,7 +280,7 @@ export default function Services() {
                       }} />
                     </div>
                   </div>
-                </motion.div>
+                </div>
               );
             })}
           </motion.div>

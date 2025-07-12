@@ -155,28 +155,9 @@ export default function Hero() {
               className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto"
             >
               <div className="w-full sm:w-auto">
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-blue-700 opacity-0 transition-opacity duration-300 rounded-lg z-10" />
                 <a
                   href="#contacto"
                   className="relative z-20 w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 sm:py-3.5 text-base sm:text-lg font-semibold text-white bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg shadow-md hover:shadow-lg hover:shadow-blue-500/30 transition-all duration-300 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-slate-900"
-                  onMouseOver={(e) => {
-                    const hoverEffect = e.currentTarget.previousElementSibling as HTMLElement;
-                    if (hoverEffect) hoverEffect.style.opacity = '1';
-                    e.currentTarget.style.transform = 'translateY(-2px)';
-                    e.currentTarget.style.boxShadow = '0 6px 20px rgba(59, 130, 246, 0.4)';
-                  }}
-                  onMouseOut={(e) => {
-                    const hoverEffect = e.currentTarget.previousElementSibling as HTMLElement;
-                    if (hoverEffect) hoverEffect.style.opacity = '0';
-                    e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = '0 4px 15px rgba(59, 130, 246, 0.3)';
-                  }}
-                  onMouseDown={() => {
-                    // Efecto al hacer clic
-                  }}
-                  onMouseUp={() => {
-                    // Restaurar después del clic
-                  }}
                 >
                   Solicitar presupuesto
                   <svg style={{ marginLeft: '0.5rem', width: '1.25rem', height: '1.25rem' }} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -262,7 +243,7 @@ export default function Hero() {
             </motion.div>
           </div>
             
-          <div style={{
+          <div className="hidden lg:block" style={{
             width: '100%',
             position: 'relative',
             ...(window.innerWidth >= 1024 ? {
@@ -278,13 +259,7 @@ export default function Hero() {
                 position: 'relative',
                 borderRadius: '1.5rem',
                 overflow: 'hidden',
-                boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
-                transformStyle: 'preserve-3d',
-                transform: 'perspective(1000px) rotateY(-5deg) rotateX(5deg)'
-              }}
-              whileHover={{
-                transform: 'perspective(1000px) rotateY(0) rotateX(0)',
-                transition: { duration: 0.5 }
+                boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
               }}
             >
               <div style={{
@@ -303,7 +278,7 @@ export default function Hero() {
                   overflow: 'hidden'
                 }}>
                   <img
-                    src="https://images.unsplash.com/photo-1600891964099-5a5d8a7a6e1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                    src="/futurgas-03.jpg"
                     alt="Técnico trabajando en instalación"
                     style={{
                       position: 'absolute',
@@ -425,7 +400,7 @@ export default function Hero() {
                   WebkitTextFillColor: 'transparent',
                   backgroundClip: 'text',
                   marginBottom: '0.25rem'
-                }}>10+</div>
+                }}>3+</div>
                 <div style={{
                   fontSize: '0.875rem',
                   color: 'rgba(255, 255, 255, 0.7)'

@@ -10,13 +10,13 @@ const services = [
   { name: 'Plomería', href: '#plomeria' },
   { name: 'Gas', href: '#gas' },
   { name: 'Electricidad', href: '#electricidad' },
-  { name: 'Construcción', href: '#construccion' },
+
 ];
 
 const social = [
   {
     name: 'Facebook',
-    href: '#',
+    href: 'https://www.facebook.com/profile.php?id=61577943730582',
     icon: (props: React.SVGProps<SVGSVGElement>) => (
       <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
         <path
@@ -29,7 +29,7 @@ const social = [
   },
   {
     name: 'Instagram',
-    href: '#',
+    href: 'https://www.instagram.com/futur.gas/',
     icon: (props: React.SVGProps<SVGSVGElement>) => (
       <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
         <path
@@ -40,18 +40,10 @@ const social = [
       </svg>
     ),
   },
-  {
-    name: 'Twitter',
-    href: '#',
-    icon: (props: React.SVGProps<SVGSVGElement>) => (
-      <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
-        <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
-      </svg>
-    ),
-  },
+
   {
     name: 'WhatsApp',
-    href: '#',
+    href: 'https://wa.me/5491136250298',
     icon: (props: React.SVGProps<SVGSVGElement>) => (
       <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
         <path d="M17.498 14.382v-.002c-.301-.15-1.767-.867-2.04-.966-.274-.1-.473-.15-.673.149-.2.3-.771.964-.944 1.162-.175.195-.35.222-.646.075-.3-.15-1.263-.465-2.403-1.485-.888-.795-1.484-1.761-1.66-2.059-.173-.297-.018-.458.13-.606.136-.135.298-.352.446-.527.146-.181.194-.3.296-.496.1-.21.049-.375-.025-.524-.075-.15-.672-1.62-.922-2.206-.24-.584-.487-.51-.672-.517-.172-.008-.371-.01-.57-.01-.2 0-.523.074-.797.36-.273.3-1.045 1.02-1.045 2.475s1.07 2.865 1.219 3.075c.149.195 2.105 3.195 5.1 4.485.714.3 1.27.489 1.704.625.714.227 1.365.195 1.879.118.571-.09 1.767-.721 2.016-1.426.255-.705.255-1.29.18-1.425-.074-.135-.27-.21-.57-.36m-5.446 7.443h-.016c-1.77 0-3.524-.48-5.055-1.38l-.36-.214-3.75.975 1.005-3.645-.239-.375a11.79 11.79 0 01-1.819-6.287c0-6.5 5.3-11.7 11.77-11.7 3.14 0 6.11 1.2 8.34 3.43 2.23 2.25 3.45 5.25 3.45 8.4-.01 6.5-5.3 11.8-11.7 11.8"/>
@@ -147,43 +139,23 @@ export default function Footer() {
             <div>
               <h3 className="text-lg font-bold text-white mb-6 pb-2 border-b border-gray-700 inline-block">Contacto</h3>
               <address className="not-italic space-y-3">
-                <div className="flex items-start">
-                  <svg className="h-5 w-5 text-blue-400 mr-3 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                  <span className="text-gray-300">Av. Principal 1234, CABA<br />Buenos Aires, Argentina</span>
-                </div>
+
                 <div className="flex items-center">
                   <svg className="h-5 w-5 text-blue-400 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
-                  <a href="tel:+5491123456789" className="text-gray-300 hover:text-white transition-colors">+54 9 11 2345-6789</a>
+                  <a href="tel:+5491136250298" className="text-gray-300 hover:text-white transition-colors">+54 9 11 3625-0298</a>
                 </div>
                 <div className="flex items-center">
                   <svg className="h-5 w-5 text-blue-400 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
-                  <a href="mailto:info@futurgas.com.ar" className="text-gray-300 hover:text-white transition-colors">info@futurgas.com.ar</a>
+                  <a href="mailto:futurgas30@gmail.com" className="text-gray-300 hover:text-white transition-colors">futurgas30@gmail.com</a>
                 </div>
               </address>
             </div>
             
-            <div className="pt-4">
-              <h3 className="text-lg font-bold text-white mb-4">Suscríbete a nuestro boletín</h3>
-              <div className="flex">
-                <input 
-                  type="email" 
-                  placeholder="Tu correo electrónico" 
-                  className="flex-grow px-4 py-2 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-800 text-white placeholder-gray-400"
-                />
-                <button 
-                  className="bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white font-medium px-4 py-2 rounded-r-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                >
-                  Enviar
-                </button>
-              </div>
-            </div>
+
           </div>
         </div>
         

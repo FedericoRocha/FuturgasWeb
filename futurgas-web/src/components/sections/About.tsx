@@ -3,24 +3,14 @@ import { motion } from 'framer-motion';
 
 const About: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [isDesktop, setIsDesktop] = useState(false);
-  const [hasMounted, setHasMounted] = useState(false);
 
   useEffect(() => {
-    setHasMounted(true);
-    
-    const checkIfDesktop = () => {
-      setIsDesktop(window.innerWidth >= 1024);
-    };
-    
-    checkIfDesktop();
-    
+
     // Usar un debounce para evitar múltiples actualizaciones durante el redimensionamiento
     let resizeTimer: ReturnType<typeof setTimeout>;
     const handleResize = () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
-        checkIfDesktop();
       }, 100);
     };
     
@@ -82,56 +72,54 @@ const About: React.FC = () => {
               boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.1)'
             }}>
               <img 
-                src="/images/about-image.jpg" 
+                src="/Futurgas-01.jpeg" 
                 alt="Equipo de Futurgas"
-                className="w-full h-auto block transition-transform duration-500 ease-in-out rounded-xl"
+                className="w-full h-auto block rounded-xl object-contain"
                 style={{
-                  transform: hasMounted && isDesktop ? 'scale(1.05)' : 'scale(1)'
-                }}
-                onMouseOver={(e) => {
-                  if (isDesktop) {
-                    e.currentTarget.style.transform = 'scale(1.03)';
-                  }
-                }}
-                onMouseOut={(e) => {
-                  if (isDesktop) {
-                    e.currentTarget.style.transform = 'scale(1.05)';
-                  } else {
-                    e.currentTarget.style.transform = 'scale(1)';
-                  }
+                  maxHeight: '400px',
+                  objectFit: 'contain',
+                  transform: 'none'
                 }}
               />
               <div style={{
                 position: 'absolute',
-                top: 0,
                 left: 0,
                 right: 0,
                 bottom: 0,
                 background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.3) 0%, rgba(37, 99, 235, 0.3) 100%)',
                 mixBlendMode: 'multiply',
-                borderRadius: '1rem'
+                borderRadius: '1rem',
+                height: '100%'
               }} />
-              <div style={{
-                position: 'absolute',
-                top: '1.5rem',
-                left: '1.5rem',
-                background: 'rgba(15, 23, 42, 0.8)',
-                color: 'white',
-                padding: '0.5rem 1rem',
-                borderRadius: '0.5rem',
-                fontSize: '0.875rem',
-                fontWeight: 600,
-                letterSpacing: '0.05em',
-                textTransform: 'uppercase',
-                backdropFilter: 'blur(4px)'
-              }}>
-                Desde 2010
+              {/* Bloque de técnicos autorizados Orbis y seguros - SOLO DESKTOP */}
+              <div className="hidden lg:flex flex-col md:flex-row items-center gap-4 p-4 mt-6 rounded-xl bg-gradient-to-r from-blue-900/70 to-blue-800/60 border border-blue-700/30 shadow-md">
+                <div className="flex-1 text-center md:text-left">
+                  <div className="text-base md:text-lg font-semibold text-blue-200 mb-1">
+                    Técnicos autorizados de <span className="text-blue-400 font-bold">Orbis</span>
+                  </div>
+                  <div className="text-sm text-slate-200 opacity-90">
+                    Trabajamos para <span className="font-semibold text-blue-300">todos los seguros domiciliarios</span>.<br/>
+                    Servicio profesional, seguro y respaldado.
+                  </div>
+                </div>
+                <div className="flex-shrink-0">
+                  <img src="/logo_orbis.png" alt="Logo Orbis" className="h-12 md:h-16 w-auto object-contain" style={{filter:'drop-shadow(0 2px 8px #2563eb55)'}} />
+                </div>
               </div>
+            {/* Imagen de equipo de plomería trabajando (solo escritorio, debajo de la principal y del bloque Orbis) */}
+            <div className="hidden lg:block mt-6">
+              <img 
+                src="/equipo-plomeria.jpg" 
+                alt="Equipo de plomería trabajando"
+                className="w-full max-w-md rounded-2xl shadow-xl border border-blue-900/20 object-cover mx-auto"
+                style={{minHeight:'180px', maxHeight:'260px'}}
+              />
             </div>
-          </motion.div>
+          </div>
+        </motion.div>
 
           {/* Columna de contenido */}
-          <div className="w-full lg:w-7/12 lg:pt-4">
+          <div className="w-full lg:w-7/12 lg:pt-4 flex flex-col gap-8">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
@@ -157,12 +145,30 @@ const About: React.FC = () => {
                 En <strong style={{ color: '#60a5fa' }}>Futurgas</strong>, nos enorgullece ofrecer soluciones integrales en instalaciones de gas y electricidad para hogares y empresas. Con más de una década de experiencia en el sector, nos hemos consolidado como líderes en el mercado gracias a nuestro compromiso con la calidad, seguridad y satisfacción del cliente.
               </p>
 
+              {/* Bloque de técnicos autorizados Orbis y seguros - SOLO MOBILE */}
+              <div className="flex flex-col md:flex-row items-center gap-4 p-4 mb-8 rounded-xl bg-gradient-to-r from-blue-900/70 to-blue-800/60 border border-blue-700/30 shadow-md lg:hidden">
+                <div className="flex-1 text-center md:text-left">
+                  <div className="text-base md:text-lg font-semibold text-blue-200 mb-1">
+                    Técnicos autorizados de <span className="text-blue-400 font-bold">Orbis</span>
+                  </div>
+                  <div className="text-sm text-slate-200 opacity-90">
+                    Trabajamos para <span className="font-semibold text-blue-300">todos los seguros domiciliarios</span>.<br/>
+                    Servicio profesional, seguro y respaldado.
+                  </div>
+                </div>
+                <div className="flex-shrink-0">
+                  <img src="/logo_orbis.png" alt="Logo Orbis" className="h-12 md:h-16 w-auto object-contain" style={{filter:'drop-shadow(0 2px 8px #2563eb55)'}} />
+                </div>
+              </div>
+
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10">
+
+
                 {[
                   {
                     icon: '🔧',
                     title: 'Experiencia',
-                    description: 'Más de 10 años brindando soluciones de calidad'
+                    description: 'Más de 3 años brindando soluciones de calidad'
                   },
                   {
                     icon: '🏆',
@@ -285,40 +291,7 @@ const About: React.FC = () => {
                   </svg>
                 </a>
                 
-                <a
-                  href="#servicios"
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    padding: '0.875rem 2rem',
-                    borderRadius: '0.5rem',
-                    fontWeight: 600,
-                    textDecoration: 'none',
-                    background: 'rgba(255, 255, 255, 0.1)',
-                    color: 'white',
-                    border: '1px solid rgba(255, 255, 255, 0.2)',
-                    transition: 'all 0.3s ease',
-                    transform: 'translateY(0)'
-                  }}
-                  onMouseOver={(e) => {
-                    if (window.innerWidth >= 1024) {
-                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.15)';
-                      e.currentTarget.style.transform = 'translateY(-2px)';
-                    }
-                  }}
-                  onMouseOut={(e) => {
-                    if (window.innerWidth >= 1024) {
-                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)';
-                      e.currentTarget.style.transform = 'translateY(0)';
-                    }
-                  }}
-                >
-                  Nuestros servicios
-                  <svg style={{ marginLeft: '0.5rem', width: '1.25rem', height: '1.25rem' }} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </a>
+
               </div>
             </motion.div>
           </div>
