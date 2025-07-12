@@ -69,16 +69,17 @@ const About: React.FC = () => {
               position: 'relative',
               borderRadius: '1rem',
               overflow: 'hidden',
-              boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.1)'
             }}>
               <img 
                 src="/Futurgas-01.jpeg" 
                 alt="Equipo de Futurgas"
-                className="w-full h-auto block rounded-xl object-contain"
+                className="w-full h-auto block rounded-xl object-contain mx-auto mb-6"
                 style={{
-                  maxHeight: '400px',
+                  maxHeight: '340px',
                   objectFit: 'contain',
-                  transform: 'none'
+                  transform: 'none',
+                  background: 'rgba(30, 41, 59, 0.15)',
+                  padding: '0.5rem'
                 }}
               />
               <div style={{
@@ -86,35 +87,73 @@ const About: React.FC = () => {
                 left: 0,
                 right: 0,
                 bottom: 0,
-                background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.3) 0%, rgba(37, 99, 235, 0.3) 100%)',
                 mixBlendMode: 'multiply',
                 borderRadius: '1rem',
                 height: '100%'
               }} />
               {/* Bloque de técnicos autorizados Orbis y seguros - SOLO DESKTOP */}
-              <div className="hidden lg:flex flex-col md:flex-row items-center gap-4 p-4 mt-6 rounded-xl bg-gradient-to-r from-blue-900/70 to-blue-800/60 border border-blue-700/30 shadow-md">
-                <div className="flex-1 text-center md:text-left">
-                  <div className="text-base md:text-lg font-semibold text-blue-200 mb-1">
-                    Técnicos autorizados de <span className="text-blue-400 font-bold">Orbis</span>
+              <div className="flex flex-col gap-0 mt-2 w-full">
+                {/* Cards independientes, sin fondo de contenedor */}
+                {/* Card Orbis */}
+                <div className="flex flex-col md:flex-row items-center gap-4 rounded-xl bg-[#23345c] border border-blue-700/30 shadow-lg p-4 w-full mb-6" style={{minWidth:'0'}}>
+                  <div className="flex-1 text-center md:text-left">
+                    <div className="text-base md:text-lg font-semibold text-blue-200 mb-1">
+                      Técnicos autorizados de <span className="text-blue-400 font-bold">Orbis</span>
+                    </div>
+                    <div className="text-sm text-slate-200 opacity-90">
+                      Especialistas certificados en productos Orbis.<br/>
+                      Garantía de calidad, respaldo directo de fábrica y atención a instalaciones y reparaciones complejas.
+                    </div>
                   </div>
-                  <div className="text-sm text-slate-200 opacity-90">
-                    Trabajamos para <span className="font-semibold text-blue-300">todos los seguros domiciliarios</span>.<br/>
-                    Servicio profesional, seguro y respaldado.
+                  <div className="flex-shrink-0">
+                    {/* Aquí va el logo de Orbis si lo hay */}
+                    {/* Logo Orbis */}
+                    <img src="/logo_orbis.png" alt="Logo Orbis" className="h-12 md:h-16 w-auto object-contain" style={{filter:'drop-shadow(0 2px 8px #2563eb55)'}} />
                   </div>
                 </div>
-                <div className="flex-shrink-0">
-                  <img src="/logo_orbis.png" alt="Logo Orbis" className="h-12 md:h-16 w-auto object-contain" style={{filter:'drop-shadow(0 2px 8px #2563eb55)'}} />
+                {/* Card Seguros Hogareños */}
+                <div className="flex flex-col md:flex-row items-center gap-4 rounded-xl bg-[#23345c] border border-blue-700/30 shadow-lg p-4 w-full mb-6" style={{minWidth:'0'}}>
+                  <div className="flex-1 text-center md:text-left">
+                    <div className="text-base md:text-lg font-semibold text-blue-200 mb-1">
+                      Técnicos autorizados de <span className="text-blue-400 font-bold">seguros hogareños</span>
+                    </div>
+                    <div className="text-sm text-slate-200 opacity-90">
+                      Atención a pólizas de hogar y asistencia para compañías de seguros.<br/>
+                      Experiencia, respaldo y gestión directa con aseguradoras.
+                    </div>
+                  </div>
+                  <div className="flex-shrink-0">
+                    {/* Ícono de seguro/hogar */}
+                    <svg width="48" height="48" fill="none" viewBox="0 0 48 48"><rect width="48" height="48" rx="12" fill="#38bdf8" fillOpacity="0.15"/><path d="M24 10L10 20v14a2 2 0 002 2h24a2 2 0 002-2V20L24 10z" stroke="#38bdf8" strokeWidth="2.5"/><path d="M20 34v-6a4 4 0 018 0v6" stroke="#38bdf8" strokeWidth="2.5"/></svg>
+                  </div>
+                </div>
+                {/* Card Industrias/Instituciones */}
+                <div className="flex flex-col md:flex-row items-center gap-4 rounded-xl bg-[#23345c] border border-blue-700/30 shadow-lg p-4 w-full mb-6" style={{minWidth:'0'}}>
+                  <div className="flex-1 text-center md:text-left">
+                    <div className="text-base md:text-lg font-semibold text-blue-200 mb-1">
+                      Servicio para <span className="text-blue-400 font-bold">industrias e instituciones</span>
+                    </div>
+                    <div className="text-sm text-slate-200 opacity-90">
+                      Soluciones técnicas y mantenimiento para empresas, fábricas, colegios y consorcios.<br/>
+                      Adaptados a las necesidades del sector industrial e institucional.
+                    </div>
+                  </div>
+                  <div className="flex-shrink-0">
+                    {/* Ícono de industria o edificio */}
+                    <svg width="48" height="48" fill="none" viewBox="0 0 48 48"><rect width="48" height="48" rx="12" fill="#fbbf24" fillOpacity="0.15"/><path d="M12 36V22l8-6v6l8-6v20" stroke="#fbbf24" strokeWidth="2.5"/><rect x="28" y="28" width="8" height="8" rx="2" stroke="#fbbf24" strokeWidth="2.5"/></svg>
+                  </div>
                 </div>
               </div>
             {/* Imagen de equipo de plomería trabajando (solo escritorio, debajo de la principal y del bloque Orbis) */}
-            <div className="hidden lg:block mt-6">
+            {/* Imagen de plomería oculta temporalmente */}
+            {/* <div className="hidden lg:block mt-6">
               <img 
                 src="/equipo-plomeria.jpg" 
                 alt="Equipo de plomería trabajando"
                 className="w-full max-w-md rounded-2xl shadow-xl border border-blue-900/20 object-cover mx-auto"
                 style={{minHeight:'180px', maxHeight:'260px'}}
               />
-            </div>
+            </div> */}
           </div>
         </motion.div>
 
@@ -145,21 +184,7 @@ const About: React.FC = () => {
                 En <strong style={{ color: '#60a5fa' }}>Futurgas</strong>, nos enorgullece ofrecer soluciones integrales en instalaciones de gas y electricidad para hogares y empresas. Con más de una década de experiencia en el sector, nos hemos consolidado como líderes en el mercado gracias a nuestro compromiso con la calidad, seguridad y satisfacción del cliente.
               </p>
 
-              {/* Bloque de técnicos autorizados Orbis y seguros - SOLO MOBILE */}
-              <div className="flex flex-col md:flex-row items-center gap-4 p-4 mb-8 rounded-xl bg-gradient-to-r from-blue-900/70 to-blue-800/60 border border-blue-700/30 shadow-md lg:hidden">
-                <div className="flex-1 text-center md:text-left">
-                  <div className="text-base md:text-lg font-semibold text-blue-200 mb-1">
-                    Técnicos autorizados de <span className="text-blue-400 font-bold">Orbis</span>
-                  </div>
-                  <div className="text-sm text-slate-200 opacity-90">
-                    Trabajamos para <span className="font-semibold text-blue-300">todos los seguros domiciliarios</span>.<br/>
-                    Servicio profesional, seguro y respaldado.
-                  </div>
-                </div>
-                <div className="flex-shrink-0">
-                  <img src="/logo_orbis.png" alt="Logo Orbis" className="h-12 md:h-16 w-auto object-contain" style={{filter:'drop-shadow(0 2px 8px #2563eb55)'}} />
-                </div>
-              </div>
+
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10">
 
