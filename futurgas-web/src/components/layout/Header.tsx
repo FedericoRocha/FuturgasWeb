@@ -91,9 +91,8 @@ export default function Header() {
           gap: '2.5rem'
         }}>
           {navigation.map((item) => (
-            <div style={{ position: 'relative' }}>
+            <div key={item.name} style={{ position: 'relative' }}>
               <a
-                key={item.name}
                 href={item.href}
                 style={{
                   fontSize: '1rem',
