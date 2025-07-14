@@ -119,7 +119,7 @@ const About: React.FC = () => {
                     </div>
                     <div className="text-sm text-slate-200 opacity-90">
                       Atención a pólizas de hogar y asistencia para compañías de seguros.<br/>
-                      Experiencia, respaldo y gestión directa con aseguradoras.
+                      Experiencia, respaldo y gestión terciarizada con aseguradoras.
                     </div>
                   </div>
                   <div className="flex-shrink-0">
