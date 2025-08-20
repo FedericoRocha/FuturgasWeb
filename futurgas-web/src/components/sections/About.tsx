@@ -177,7 +177,7 @@ const About: React.FC = () => {
               </span>
               
               <h2 className="text-4xl md:text-5xl font-extrabold leading-tight mt-2 mb-6 bg-gradient-to-r from-white to-indigo-200 bg-clip-text text-transparent">
-                Expertos en soluciones de gas y electricidad
+                Expertos en soluciones de gas, plomería y electricidad
               </h2>
 
               <p className="text-lg text-slate-300 leading-relaxed mb-8">
