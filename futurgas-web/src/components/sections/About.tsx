@@ -181,7 +181,7 @@ const About: React.FC = () => {
               </h2>
 
               <p className="text-lg text-slate-300 leading-relaxed mb-8">
-                En <strong style={{ color: '#60a5fa' }}>Futurgas</strong>, nos enorgullece ofrecer soluciones integrales en instalaciones de gas y electricidad para hogares y empresas. Con más de una década de experiencia en el sector, nos hemos consolidado como líderes en el mercado gracias a nuestro compromiso con la calidad, seguridad y satisfacción del cliente.
+                En <strong style={{ color: '#60a5fa' }}>Futurgas</strong>, nos enorgullece ofrecer soluciones integrales en instalaciones de gas, plomería y electricidad para hogares y empresas. Con más de una década de experiencia en el sector, nos hemos consolidado como líderes en el mercado gracias a nuestro compromiso con la calidad, seguridad y satisfacción del cliente.
               </p>
 
 

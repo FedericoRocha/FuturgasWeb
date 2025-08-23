@@ -135,7 +135,7 @@ export default function Hero() {
               transition={{ duration: 0.8, ease: 'easeOut' }}
             >
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight mb-4 sm:mb-6 bg-gradient-to-r from-white to-indigo-200 bg-clip-text text-transparent m-0 p-0">
-                Tu solución integral en servicios de <span className="text-blue-400">gas</span> y electricidad
+                Tu solución integral en servicios de <span className="text-blue-400">gas</span>, plomería y electricidad
               </h1>
             </motion.div>
             
